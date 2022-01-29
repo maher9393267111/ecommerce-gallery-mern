@@ -65,3 +65,13 @@ exports.signout = (req, res) => {
     res.clearCookie('t');
     res.json({ message: 'Signout success' });
 };
+
+
+
+// use this middlware to protect some routes if user is not login in  site
+
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET,
+    algorithms: ["HS256"], // added later
+    userProperty: "auth",
+  });
