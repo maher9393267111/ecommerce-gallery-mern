@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 
-const  {signup,signin,signout,requireSignin} = require("../controllers/auth");
+const  {signup,signin,signout,requireSignin,isAuth} = require("../controllers/auth");
 
 
 //register validation function with express validation
@@ -21,9 +21,15 @@ router.get("/signout", signout);
 
 //protected rote use middlwware 
 
-router.get('/hello',requireSignin.apply, function (req, res) {
-    res.send('hello world')
-  })
+// >>>>>> لازم كتابة الرمز في الراس لاستطيع الزهاب لهزا المسار
+
+// router.get('/hello',requireSignin, function (req, res) {
+//     res.send('hello world')
+//   })
+
+
+
+
 
 
 
