@@ -56,3 +56,25 @@ exports.create = (req, res) => {
         });
     });
 };
+
+
+
+// Read spcefic product by his ID
+exports.productById = (req, res, next, id) => {
+    Product.findById(id)
+        .populate('category')
+        .exec((err, product) => {
+            if (err || !product) {
+                return res.status(400).json({
+                    error: 'Product not found'
+                });
+            }
+            req.product = product;
+            next();
+        });
+};
+
+exports.read = (req, res) => {
+    req.product.photo = undefined;
+    return res.json(req.product);
+};
