@@ -5,14 +5,25 @@ import Signin from './user/signin';
 import Home from './core/Home.js'
 
 
+import Menu  from './core/menu';
+
 export default function (){
   return (
 
-<div>
+
     
 
     <BrowserRouter>
+
+   
+      
+
+      {/* <Menu/> */}
+
     
+
+
+
     <Switch>
 
     <Route path="/" exact component={Home} />
@@ -34,7 +45,7 @@ export default function (){
 
 
 
-</div>
+
 
 
   )

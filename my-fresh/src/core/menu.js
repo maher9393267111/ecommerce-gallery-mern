@@ -15,7 +15,7 @@ const isActive = (history, path) => {
 
 
 
-export default function Menu({history}){ 
+ function Menu({history}){ 
     
 
    
@@ -28,25 +28,29 @@ export default function Menu({history}){
 <ul className="nav nav-tabs bg-primary">
 
 <li className="nav-item">
-<Link to ='signin' style={isActive(history,'/')} />
+                <Link
+                    className="nav-link"
+                    style={isActive(history, "/")}
+                    to="/"
+                >
+                    Home
+                </Link>
 
-Home
+                </li>
+
+    <li className="nav-item">
+<Link className="nav-link" to ='/signin' style={isActive(history,'/signin')} >  signup </Link>
+
+
     </li>
     
 
-    <li className="nav-item">
-<Link to ='signin' style={isActive(history,'/signp')} />
-
-signup
-    </li>
-    
-
 
 
     <li className="nav-item">
-<Link to ='signin' style={isActive(history,'/signin')} />
+<Link className="nav-link" to ='/signup' style={isActive(history,'/signup')} > signin </Link>
 
-signIn
+
     </li>
     
 
@@ -66,4 +70,4 @@ signIn
 
 
 
-withRouter(Menu);
+export default withRouter(Menu);
