@@ -15,6 +15,11 @@ router.get('/user/:userId', requireSignin, isAuth, read);
 router.put('/user/:userId', requireSignin, isAuth, update);
 router.get('/orders/by/user/:userId', requireSignin, isAuth, purchaseHistory);
 
+// update user route
+
+router.put('/user/:userId', requireSignin, isAuth, update);
+
+
 router.param('userId', userById);
 
 module.exports = router;

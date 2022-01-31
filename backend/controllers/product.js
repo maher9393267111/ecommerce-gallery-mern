@@ -189,6 +189,10 @@ exports.listRelated = (req, res) => {
         });
 };
 
+
+// show  only All category field from product model  //
+
+
 exports.listCategories = (req, res) => {
     Product.distinct('category', {}, (err, categories) => {
         if (err) {
