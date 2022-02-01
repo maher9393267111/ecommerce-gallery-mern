@@ -9,6 +9,10 @@ import AdminRoute from './auth/AdminRoute';
 import Menu  from './core/menu';
 import AddCategory from './admin/AddCategory';
 import AddProduct from './admin/AddProduct';
+
+import Shop from './core/Shop';
+
+
 export default function (){
   return (
 
@@ -42,6 +46,7 @@ export default function (){
                 <AdminRoute path="/create/product" exact component={AddProduct} />
 
 
+                <Route path="/shop" exact component={Shop} />
     </Switch>
     
     

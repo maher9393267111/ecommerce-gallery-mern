@@ -38,6 +38,23 @@ const isActive = (history, path) => {
 
                 </li>
 
+    {/* Shop link */}
+
+                <li className="nav-item">
+                <Link
+                    className="nav-link"
+                    style={isActive(history, "/shop")}
+                    to="/shop"
+                >
+                    Shop
+                </Link>
+
+                </li>
+
+
+
+
+
      {/* if user role =0  show user dashboard page */}
 
                 {isAuthenticated() && isAuthenticated().user.role === 0 && (
