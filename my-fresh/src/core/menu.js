@@ -1,8 +1,8 @@
 
 
 import { Link, withRouter } from "react-router-dom";
-
-
+import React, { Fragment } from "react";
+import { signout, isAuthenticated } from "../auth";
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
         return { color: "#ff9900" };
@@ -38,21 +38,78 @@ const isActive = (history, path) => {
 
                 </li>
 
-    <li className="nav-item">
-<Link className="nav-link" to ='/signin' style={isActive(history,'/signin')} >  signin </Link>
+
+{/*  if user not login yet show signin and signup */}
 
 
-    </li>
+
+{!isAuthenticated() && (
+                <Fragment>
+                    <li className="nav-item">
+                        <Link
+                            className="nav-link"
+                            style={isActive(history, "/signin")}
+                            to="/signin"
+                        >
+                            Signin
+                        </Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link
+                            className="nav-link"
+                            style={isActive(history, "/signup")}
+                            to="/signup"
+                        >
+                            Signup
+                        </Link>
+                    </li>
+                </Fragment>
+            )}
+
+
+    {/* if user is login in show only {sign out} */}
+
+
+    {isAuthenticated() && (
+                <li className="nav-item">
+                    <span
+                        className="nav-link"
+                        style={{ cursor: "pointer", color: "#ffffff" }}
+                        onClick={() =>
+                            signout(() => {
+                                history.push("/");
+                            })
+                        }
+                    >
+                        Signout
+                    </span>
+                </li>
+            )}
+
+ 
     
 
 
 
+
+
     <li className="nav-item">
-<Link className="nav-link" to ='/signup' style={isActive(history,'/signup')} > signup </Link>
+                    <span
+                        className="nav-link"
+                        style={{ cursor: "pointer", color: "#ffffff" }}
+                        onClick={() =>
+                            signout(() => {
+                                history.push("/");
+                            })
+                        }
+                    >
+                        Signout
+                    </span>
+                </li>
 
 
-    </li>
-    
+
 
 
 
