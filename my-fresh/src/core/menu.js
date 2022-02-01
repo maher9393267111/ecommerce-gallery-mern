@@ -39,6 +39,23 @@ const isActive = (history, path) => {
                 </li>
 
 
+
+                <li className="nav-item">
+                <Link
+                    className="nav-link"
+                    style={isActive(history, "/user/dashboard")}
+                    to="/user/dashboard"
+                >
+                    Dashboard
+                </Link>
+
+                </li>
+
+
+
+
+
+
 {/*  if user not login yet show signin and signup */}
 
 
@@ -93,20 +110,6 @@ const isActive = (history, path) => {
 
 
 
-
-    <li className="nav-item">
-                    <span
-                        className="nav-link"
-                        style={{ cursor: "pointer", color: "#ffffff" }}
-                        onClick={() =>
-                            signout(() => {
-                                history.push("/");
-                            })
-                        }
-                    >
-                        Signout
-                    </span>
-                </li>
 
 
 
