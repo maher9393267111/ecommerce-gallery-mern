@@ -13,6 +13,14 @@ const Signin = () => {
     });
 
     const { email, password, loading, error, redirectToReferrer } = values;
+
+
+    //when user sign in well genereate token with user data and well be into 
+
+    // isAuthenticated function like this :
+
+    // to check if user.role is admin well redirect to adminDashboard
+
     const { user } = isAuthenticated();
 
     const handleChange = name => event => {
@@ -33,7 +41,7 @@ const Signin = () => {
 
               // save token of user that login in localstorage
 
-                authenticate(data, () => {
+                authenticate(data, () => {  // must be into signin function to save data into athenticate function
                     setValues({
                         ...values,
                         redirectToReferrer: true
@@ -87,13 +95,23 @@ const Signin = () => {
         );
 
     const redirectUser = () => {
-        if (redirectToReferrer) {
+
+        // if user is successfully signin 
+         if (redirectToReferrer) {  //true if user is signin and is already in registred
+
+            // if user is rol admin go to admin dashboard
             if (user && user.role === 1) {
                 return <Redirect to="/admin/dashboard" />;
+
+                // if user role is 0 go to user dashboard
+
             } else {
                 return <Redirect to="/user/dashboard" />;
             }
         }
+
+             // if the user already signin   redirect it to Home page
+                                     
         if (isAuthenticated()) {
             return <Redirect to="/" />;
         }
