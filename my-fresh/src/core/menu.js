@@ -39,7 +39,7 @@ const isActive = (history, path) => {
                 </li>
 
     <li className="nav-item">
-<Link className="nav-link" to ='/signin' style={isActive(history,'/signin')} >  signup </Link>
+<Link className="nav-link" to ='/signin' style={isActive(history,'/signin')} >  signin </Link>
 
 
     </li>
@@ -48,7 +48,7 @@ const isActive = (history, path) => {
 
 
     <li className="nav-item">
-<Link className="nav-link" to ='/signup' style={isActive(history,'/signup')} > signin </Link>
+<Link className="nav-link" to ='/signup' style={isActive(history,'/signup')} > signup </Link>
 
 
     </li>
