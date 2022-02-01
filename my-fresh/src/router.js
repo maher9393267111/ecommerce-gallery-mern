@@ -8,6 +8,7 @@ import Dashboard from './user/Dashboard'
 import AdminRoute from './auth/AdminRoute';
 import Menu  from './core/menu';
 import AddCategory from './admin/AddCategory';
+import AddProduct from './admin/AddProduct';
 export default function (){
   return (
 
@@ -36,6 +37,10 @@ export default function (){
                 <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
 
                 <AdminRoute path="/create/category" exact component={AddCategory} />
+
+                   
+                <AdminRoute path="/create/product" exact component={AddProduct} />
+
 
     </Switch>
     
