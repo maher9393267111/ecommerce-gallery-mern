@@ -176,6 +176,11 @@ exports.update = (req, res) => {
 exports.listRelated = (req, res) => {
     let limit = req.query.limit ? parseInt(req.query.limit) : 6;
 
+
+// find products from same  category that we passed in req  and dont show the product 
+// we passed his id in req beacuse we want to show the related products to this productt
+// not the product himself
+
     Product.find({ _id: { $ne: req.product }, category: req.product.category })
         .limit(limit)
         .populate('category', '_id name')
