@@ -224,8 +224,12 @@ exports.listBySearch = (req, res) => {
     let skip = parseInt(req.body.skip);
     let findArgs = {};
 
-    // console.log(order, sortBy, limit, skip, req.body.filters);
-    // console.log("findArgs", findArgs);
+     console.log(order, sortBy, limit, skip, req.body.filters);
+     console.log("findArgsss", findArgs);
+console.log(limit);
+console.log(req.body.filters);
+console.log(limit);
+console.log(req.body.order);
 
     for (let key in req.body.filters) {
         if (req.body.filters[key].length > 0) {
