@@ -21,27 +21,30 @@ export const getCategories = () => {
         .catch(err => console.log(err));
 };
 
-// export const getFilteredProducts = (skip, limit, filters = {}) => {
-//     const data = {
-//         limit,
-//         skip,
-//         filters
-//     };
-//     return fetch(`${API}/products/by/search`, {
-//         method: "POST",
-//         headers: {
-//             Accept: "application/json",
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(data)
-//     })
-//         .then(response => {
-//             return response.json();
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-// };
+
+// show only filtered products with related with checked category in shop.js
+
+export const getFilteredProducts = (skip, limit, filters = {}) => {
+    const data = {
+        limit,
+        skip,
+        filters
+    };
+    return fetch(`${API}/products/by/search`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
 
 // export const list = params => {
 //     const query = queryString.stringify(params);
