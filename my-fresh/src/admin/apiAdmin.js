@@ -72,6 +72,9 @@ export const getCategories = () => {
         .catch(err => console.log(err));
 };
 
+
+// show all orders from backend for admin
+
 export const listOrders = (userId, token) => {
     return fetch(`${API}/order/list/${userId}`, {
         method: 'GET',
@@ -86,6 +89,11 @@ export const listOrders = (userId, token) => {
         .catch(err => console.log(err));
 };
 
+
+
+///********************************************** */
+
+
 export const getStatusValues = (userId, token) => {
     return fetch(`${API}/order/status-values/${userId}`, {
         method: 'GET',
@@ -99,6 +107,9 @@ export const getStatusValues = (userId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+
+//********************************************************** */
 
 export const updateOrderStatus = (userId, token, orderId, status) => {
     return fetch(`${API}/order/${orderId}/status/${userId}`, {
@@ -124,8 +135,10 @@ export const updateOrderStatus = (userId, token, orderId, status) => {
  * delete single product
  */
 
+
+// get all products
 export const getProducts = () => {
-    return fetch(`${API}/products?limit=undefined`, {
+    return fetch(`${API}/products`, { // if no limit number well be null ?limit=undefined
         method: 'GET'
     })
         .then(response => {
@@ -149,6 +162,8 @@ export const deleteProduct = (productId, userId, token) => {
         .catch(err => console.log(err));
 };
 
+
+// single product fetch
 export const getProduct = productId => {
     return fetch(`${API}/product/${productId}`, {
         method: 'GET'

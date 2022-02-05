@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 
-const { listBySearch,photo, productById,read,create,remove,update,list,listRelated,listCategories} = require("../controllers/product");
+const { listSearch,listBySearch,photo, productById,read,create,remove,update,list,listRelated,listCategories} = require("../controllers/product");
 
 
 const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
@@ -25,7 +25,15 @@ router.get("/products", list);
 router.post('/product/create/:userId', requireSignin, isAuth, isAdmin, create);
 
 
+// product page to show product details
+
 router.get("/product/:productId", read);
+
+
+// show in product detail page in frontend
+
+router.get("/products/related/:productId", listRelated);
+
 
 
 //  Delete specefic product id 
@@ -50,9 +58,12 @@ router.put(
 );
 
 
+//  search to find product in home page frontend by search input field
+ router.get("/products/search", listSearch);
 
-// router.get("/products/search", listSearch);
-router.get("/products/related/:productId", listRelated);
+
+
+
  router.get("/products/categories", listCategories);
  router.post("/products/by/search", listBySearch);
  router.get("/product/photo/:productId", photo);

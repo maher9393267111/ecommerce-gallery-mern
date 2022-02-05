@@ -1,5 +1,5 @@
 const User = require('../models/user');
-// const { Order } = require('../models/order');
+ const { Order } = require('../models/order');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 exports.userById = (req, res, next, id) => {
@@ -9,7 +9,7 @@ exports.userById = (req, res, next, id) => {
                 error: 'User not found'
             });
         }
-        req.profile = user;
+        req.profile = user; // req.profile well get user info
         next();
     });
 };
@@ -80,7 +80,11 @@ exports.update = (req, res) => {
 exports.addOrderToUserHistory = (req, res, next) => {
     let history = [];
 
-    req.body.order.products.forEach(item => {
+
+// req.body.order is sended as post {order:....} **
+// req.body.order.products is come from checkout in cart 
+
+    req.body.order.products.forEach(item => {  // from order create order of products that user buy it 
         history.push({
             _id: item._id,
             name: item.name,
@@ -92,6 +96,9 @@ exports.addOrderToUserHistory = (req, res, next) => {
         });
     });
 
+      // push the history array that have information from order
+      // and added it to user schaema and info in database 
+      
     User.findOneAndUpdate({ _id: req.profile._id }, { $push: { history: history } }, { new: true }, (error, data) => {
         if (error) {
             return res.status(400).json({
@@ -102,9 +109,16 @@ exports.addOrderToUserHistory = (req, res, next) => {
     });
 };
 
+
+
+// orders where is related  to user id 
+
 exports.purchaseHistory = (req, res) => {
-    Order.find({ user: req.profile._id })
-        .populate('user', '_id name')
+
+    // meaning find orders for the user that pass his id in request 
+    // and show the user orders
+    Order.find({ user: req.profile._id }) // req.profile is come when user pass his id in req
+        .populate('user', '_id name') 
         .sort('-created')
         .exec((err, orders) => {
             if (err) {

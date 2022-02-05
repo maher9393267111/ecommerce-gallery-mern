@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
 
-     // admin information after signin site
+     // admin information after signin site  and save  info in localstorage
 
     const {  user: { _id, name, email, role  } } = isAuthenticated();
 

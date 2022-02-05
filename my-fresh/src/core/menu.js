@@ -3,7 +3,16 @@
 import { Link, withRouter } from "react-router-dom";
 import React, { Fragment } from "react";
 import { signout, isAuthenticated } from "../auth";
+
+import { itemTotal } from "./CartHelper";
 const isActive = (history, path) => {
+
+
+// from localstorage
+
+    
+
+
     if (history.location.pathname === path) {
         return { color: "#ff9900" };
     } else {
@@ -17,7 +26,7 @@ const isActive = (history, path) => {
 
  function Menu({history}){ 
     
-
+   
    
   
 
@@ -25,7 +34,7 @@ const isActive = (history, path) => {
   
   <div>
 
-<ul className="nav nav-tabs bg-primary">
+<ul className="bg-primary  nav nav-tabs " style={{height:'85px'}} >
 
 <li className="nav-item">
                 <Link
@@ -33,7 +42,7 @@ const isActive = (history, path) => {
                     style={isActive(history, "/")}
                     to="/"
                 >
-                    Home
+                    Home 
                 </Link>
 
                 </li>
@@ -53,6 +62,41 @@ const isActive = (history, path) => {
 
 
 
+            {/* <li className="nav-item"> 
+                <Link
+                    className="nav-link"
+                    style={isActive(history, "/profile/:userId")}
+                    to={`/profile/${_id}`}
+                >
+                    user Profile
+                </Link>
+
+                </li>   */}
+
+
+
+
+
+
+
+  {/* Cart  */}
+
+  <li className="nav-item">
+                <Link
+                    className="nav-link"
+                    style={isActive(history, "/cart")}
+                    to="/cart"
+                >
+                    Cart{" "}
+                    <sup>
+                        <small className="cart-badge">{itemTotal()}</small>
+                    </sup>
+                </Link>
+            </li>
+
+
+
+
 
 
      {/* if user role =0  show user dashboard page */}
@@ -64,7 +108,7 @@ const isActive = (history, path) => {
                         style={isActive(history, "/user/dashboard")}
                         to="/user/dashboard"
                     >
-                      User  Dashboard
+                      user Dashboard
                     </Link>
                 </li>
             )}
@@ -73,7 +117,7 @@ const isActive = (history, path) => {
 
         {/* if user role =1  show admin dashboard page */}
 
-            {isAuthenticated() && isAuthenticated().user.role === 1 && (
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
                 <li className="nav-item">
                     <Link
                         className="nav-link"
@@ -84,6 +128,23 @@ const isActive = (history, path) => {
                     </Link>
                 </li>
             )}
+
+
+{isAuthenticated() && isAuthenticated().user.role === 1 && (
+                <li className="nav-item">
+                    <Link
+                        className="nav-link"
+                        style={isActive(history, "/admin/orders")}
+                        to="/admin/orders"
+                    >
+                       Orders page
+                    </Link>
+                </li>
+            )}
+
+
+
+
 
 
 

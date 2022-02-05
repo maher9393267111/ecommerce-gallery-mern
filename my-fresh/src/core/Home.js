@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from './layout';
 import { getProducts } from './apiCore.js';
 import Card from './Card';
-// import Search from './Search';
+ import Search from './Search';
 
 import '../styles.css'
 
@@ -12,6 +12,9 @@ const Home = () => {
     const [error, setError] = useState(false);
 
     const loadProductsBySell = () => {
+
+   // sort products by sold
+
         getProducts('sold').then(data => {
             if (data.error) {
                 setError(data.error);
@@ -20,6 +23,8 @@ const Home = () => {
             }
         });
     };
+
+   // sort products by newer
 
     const loadProductsByArrival = () => {
         getProducts('createdAt').then(data => {
@@ -43,7 +48,7 @@ const Home = () => {
             description="Node React E-commerce App"
             className="container-fluid"
         >
-            {/* <Search /> */}
+            <Search />
             <h2 className="mb-4">New Arrivals</h2>
             <div className="row">
                 {productsByArrival.map((product, i) => (

@@ -3,12 +3,13 @@ const _ = require('lodash');
 const fs = require('fs');
 const Product = require('../models/product');
 const { errorHandler } = require('../helpers/dbErrorHandler');
+const { CLIENT_RENEG_LIMIT } = require('tls');
 
 
 
 // CREATE PRODUCT
 
-
+// create products we have to install // formidable // package
 exports.create = (req, res) => {
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
@@ -116,8 +117,10 @@ exports.update = (req, res) => {
             });
         }
 
-        let product = req.product;
-        product = _.extend(product, fields);
+        let product = req.product; // come from product id {info}
+
+        // all fields value well be product values {{update product}}
+        product = _.extend(product, fields); // _.extend coming from lodash package 
 
         // 1kb = 1000
         // 1mb = 1000000
@@ -150,7 +153,7 @@ exports.update = (req, res) => {
 
 
    // SORT BY QUERY show list of products
-
+   // sort by new products or sold or quantity choose what you want
    exports.list = (req, res) => {
     let order = req.query.order ? req.query.order : 'asc';  // ?order
     let sortBy = req.query.sortBy ? req.query.sortBy : '_id';  // ?sortBy
@@ -180,6 +183,9 @@ exports.listRelated = (req, res) => {
 // find products from same  category that we passed in req  and dont show the product 
 // we passed his id in req beacuse we want to show the related products to this productt
 // not the product himself
+
+   console.log(req.product);
+   console.log(req.product.category);
 
     Product.find({ _id: { $ne: req.product }, category: req.product.category })
         .limit(limit)
@@ -217,6 +223,11 @@ exports.listCategories = (req, res) => {
  * we will make api request and show the products to users based on what he wants
  */
 
+
+// check box and radion input make filter to products in frontend by category and price
+
+// in {shop} component to make filter to products by price and by category
+
 exports.listBySearch = (req, res) => {
     let order = req.body.order ? req.body.order : 'desc';
     let sortBy = req.body.sortBy ? req.body.sortBy : '_id';
@@ -230,6 +241,9 @@ console.log(limit);
 console.log(req.body.filters);
 console.log(limit);
 console.log(req.body.order);
+
+ // key is price or category
+ // req.body.filters is filters array that based from frontend
 
     for (let key in req.body.filters) {
         if (req.body.filters[key].length > 0) {
@@ -273,13 +287,33 @@ exports.photo = (req, res, next) => {
     next();
 };
 
+
+ // used in home page search to procucts by his name and by select his related category
 exports.listSearch = (req, res) => {
     // create query object to hold search value and category value
     const query = {};
     // assign search value to query.name
     if (req.query.search) {
+ 
+console.log(req.query.search);
+
+
+        // https://www.geeksforgeeks.org/mongodb-regex/
+   // i: in options To match both lower case and upper case pattern in the string.
+   // { <field>: { $regex: /pattern/, $options: '<options>' } }
+
+
+                     // {{$regex}} to search any word fro
+                     //req.query.search in products database and show it
+                     //  based any word or charcter from the poduct name to found product
         query.name = { $regex: req.query.search, $options: 'i' };
+
+
         // assigne category value to query.category
+
+           // if not all category selected search to products
+           // well be related to his category or well be not found
+
         if (req.query.category && req.query.category != 'All') {
             query.category = req.query.category;
         }
@@ -296,16 +330,26 @@ exports.listSearch = (req, res) => {
     }
 };
 
+
+
+// change product quantity and sold when useer make order
+
 exports.decreaseQuantity = (req, res, next) => {
-    let bulkOps = req.body.order.products.map(item => {
+
+// products in cart then in order make map to change quantity and sold number
+
+    let bulkOps = req.body.order.products.map(item => { 
         return {
             updateOne: {
-                filter: { _id: item._id },
+                filter: { _id: item._id }, // single product find by id
+
+                // then update quantity to be -- and sold ++
                 update: { $inc: { quantity: -item.count, sold: +item.count } }
             }
         };
     });
 
+    
     Product.bulkWrite(bulkOps, {}, (error, products) => {
         if (error) {
             return res.status(400).json({
